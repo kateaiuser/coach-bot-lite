@@ -36,7 +36,16 @@ ALLOWED_USER_IDS = {int(x) for x in _allowed.split(",") if x} if _allowed else s
 
 
 def load_personality() -> str:
-    """Личность коуча. Замени personality.md своим промптом из практикума."""
+    """Личность коуча.
+
+    Приоритет у переменной COACH_PROMPT: её задают приватно в Railway Variables,
+    чтобы личное НЕ попадало в публичный репозиторий. Если её нет, берётся файл
+    personality.md (это удобно, только когда твой репозиторий приватный),
+    иначе мягкая заглушка.
+    """
+    env_prompt = os.getenv("COACH_PROMPT", "").strip()
+    if env_prompt:
+        return env_prompt
     try:
         with open("personality.md", encoding="utf-8") as f:
             text = f.read().strip()
@@ -44,10 +53,9 @@ def load_personality() -> str:
                 return text
     except FileNotFoundError:
         pass
-    return os.getenv(
-        "COACH_PROMPT",
+    return (
         "Ты тёплый и честный коуч. Отвечаешь коротко, по делу, без клише. "
-        "Подсвечиваешь то, что человек не замечает, и задаёшь один сильный вопрос.",
+        "Подсвечиваешь то, что человек не замечает, и задаёшь один сильный вопрос."
     )
 
 
