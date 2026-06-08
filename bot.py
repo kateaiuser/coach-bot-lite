@@ -26,7 +26,7 @@ log = logging.getLogger("coach-bot")
 # ---- настройки из переменных окружения ----
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 ANTHROPIC_API_KEY = os.environ["ANTHROPIC_API_KEY"]
-MODEL = os.getenv("MODEL", "claude-sonnet-4-6")
+MODEL = os.getenv("MODEL", "claude-opus-4-5")
 MAX_TOKENS = int(os.getenv("MAX_TOKENS", "1024"))
 HISTORY = int(os.getenv("HISTORY", "12"))  # сколько последних реплик помнить в сессии
 
